@@ -1,4 +1,4 @@
-export type Meme = {
-    text: string;
-    photoUrl: string;
+export interface Meme {
+  text: string
+  photoUrl: string
 }
