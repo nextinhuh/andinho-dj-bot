@@ -30,7 +30,7 @@ export const Play: Command = {
         if (!searchResult || !searchResult.tracks.length) return interaction.followUp({ content: '❌ | Eu não achei o carai dessa música não, arrombado!' });
 
         // send feedback if found
-        await interaction.followUp({ content: `⏱ | Deixe eu botar ${searchResult.playlist ? 'sua playlist' : 'sua música'} no pen drive carai, espera ai.. !!` });
+        await interaction.followUp({ content: `⏱ | Deixe eu botar ${searchResult.playlist ? 'sua playlist' : 'sua música'} no pen drive carai, espera ai.. !` });
 
         // send feedback if member is not in same channel
         if (!member.voice.channelId) return interaction.reply({ content: "E eu vou tocar pra ninguém, é ?!", ephemeral: true });
