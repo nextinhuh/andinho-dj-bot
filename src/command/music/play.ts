@@ -1,7 +1,6 @@
 import { Command } from "../interface/Command";
-import { Player, QueryType, Queue } from "discord-player";
+import { Player, QueryType } from "discord-player";
 import { CommandInteraction, Client, GuildMember, ApplicationCommandOptionType } from "discord.js";
-import { Phrases } from "../../utils/constants";
 
 export const Play: Command = {
     name: 'play',
@@ -29,11 +28,13 @@ export const Play: Command = {
         // send feedback if not found
         if (!searchResult || !searchResult.tracks.length) return interaction.followUp({ content: '❌ | Eu não achei o carai dessa música não, arrombado!' });
 
-        // send feedback if found
-        await interaction.followUp({ content: `⏱ | Deixe eu botar ${searchResult.playlist ? 'sua playlist' : 'sua música'} no pen drive carai, espera ai.. !` });
-
         // send feedback if member is not in same channel
-        if (!member.voice.channelId) return interaction.reply({ content: "E eu vou tocar pra ninguém, é ?!", ephemeral: true });
+        if (!member.voice.channelId) return interaction.reply({ content: "Oxi, e eu vou tocar pra ninguém, é ?!", ephemeral: true });
+
+        // send feedback if found
+        const waitingMessage = await interaction.followUp({
+            content: `⏱ | Deixe eu botar ${searchResult.playlist ? 'sua playlist' : 'sua música'} no pen drive carai, espera ai.. !`
+        });
 
         if (interaction.guild) {
             // create the track queue
@@ -60,7 +61,11 @@ export const Play: Command = {
             searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
 
             // starts the queue
-            if (!queue.playing) await queue.play();
+            if (!queue.playing) {
+                await queue.play();
+                const currentTrack = queue.current;
+                waitingMessage.edit({ content: `🎶 | Tô tocando essa aqui ó:  **${currentTrack.title}**!` });
+            }
         }
     }
 };

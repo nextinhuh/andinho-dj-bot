@@ -8,4 +8,16 @@ import { Pause } from "./music/pause";
 import { Resume } from "./music/resume";
 import { Skip } from "./music/skip";
 
-export const Commands: Command[] = [Phrase, Meme, Play, Stop, Queue, Pause, Resume, Skip];
+export const Commands: Command[] = [
+    // music
+    Play,
+    Pause,
+    Resume,
+    Skip,
+    Stop,
+    Queue,
+
+    // others
+    Phrase,
+    Meme,
+];

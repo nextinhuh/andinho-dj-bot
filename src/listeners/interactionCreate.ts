@@ -9,9 +9,6 @@ export default (client: Client, clientPlayer: Player): void => {
         }
     });
 
-    // create event when music start
-    clientPlayer.on("trackStart", (queue: Queue<any>, track) => queue.metadata.channel.send(`🎶 | Tô tocando essa aqui ó  **${track.title}**!`));
-
     // create event when music end
     clientPlayer.on("queueEnd", (queue: Queue<any>) => queue.metadata.channel.send(`🎶 | Toquei sua música, então se lasque..`));
 };
@@ -26,5 +23,5 @@ const handleSlashCommand = async (client: Client, interaction: CommandInteractio
 
     await interaction.deferReply();
 
-    await slashCommand.run(client, interaction, clientPlayer);
+    slashCommand.run(client, interaction, clientPlayer);
 };

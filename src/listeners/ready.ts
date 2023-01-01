@@ -1,7 +1,7 @@
-import { Client } from "discord.js";
 import { Commands } from "../command";
+import { Client } from "discord.js";
 
-export default (client: Client): void => {
+export default async (client: Client): Promise<void> => {
     client.on("ready", async () => {
         if (!client.user || !client.application) {
             return;
