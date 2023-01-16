@@ -1,6 +1,7 @@
 import { Commands } from '../command'
 import { Player, Queue } from 'discord-player'
 import { CommandInteraction, Client, Interaction } from 'discord.js'
+import { EmbedCustomBuild } from '../command/music/music-message-embed'
 
 export default (client: Client, clientPlayer: Player): void => {
   client.on('interactionCreate', async (interaction: Interaction) => {
@@ -9,8 +10,45 @@ export default (client: Client, clientPlayer: Player): void => {
     }
   })
 
+  // create event when music start
+  clientPlayer.on('trackStart', (queue: Queue<any>) => {
+    queue.metadata.channel.send({
+      embeds: [EmbedCustomBuild({
+        typeEmbed: 'musicPlay',
+        queueProps: queue
+      })]
+    })
+  })
+
+  // create event when add music in queue
+  clientPlayer.on('trackAdd', (queue: Queue<any>) => {
+    queue.metadata.channel.send({
+      embeds: [EmbedCustomBuild({
+        typeEmbed: 'musicAdd',
+        queueProps: queue
+      })]
+    })
+  })
+
+  // create event when disconnect bot
+  clientPlayer.on('botDisconnect', (queue: Queue<any>) => {
+    queue.metadata.channel.send({
+      embeds: [EmbedCustomBuild({
+        typeEmbed: 'disconnectBot',
+        queueProps: queue
+      })]
+    })
+  })
+
   // create event when music end
-  clientPlayer.on('queueEnd', (queue: Queue<any>) => queue.metadata.channel.send('🎶 | Toquei sua música, então se lasque..'))
+  clientPlayer.on('queueEnd', (queue: Queue<any>) => {
+    queue.metadata.channel.send({
+      embeds: [EmbedCustomBuild({
+        typeEmbed: 'queueEnded',
+        queueProps: queue
+      })]
+    })
+  })
 }
 
 const handleSlashCommand = async (client: Client, interaction: CommandInteraction, clientPlayer: Player): Promise<void> => {

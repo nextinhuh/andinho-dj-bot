@@ -63,8 +63,6 @@ export const Play: Command = {
       // starts the queue
       if (!queue.playing) {
         await queue.play()
-        const currentTrack = queue.current
-        await waitingMessage.edit({ content: `🎶 | Tô tocando essa aqui ó:  **${currentTrack.title}**!` })
       }
     }
   }

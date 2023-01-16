@@ -1,6 +1,7 @@
 import { Command } from '../interface/Command'
 import { Player } from 'discord-player'
 import { CommandInteraction, Client } from 'discord.js'
+import { EmbedCustomBuild } from './music-message-embed'
 
 export const Resume: Command = {
   name: 'resume',
@@ -11,9 +12,14 @@ export const Resume: Command = {
 
       if ((queue == null) || !queue.playing) return await interaction.followUp({ content: '❌ | Tô tocando nada não porra, e não me abuse não!' })
 
-      const paused = queue.setPaused(false)
+      queue.setPaused(false)
 
-      return await interaction.followUp({ content: paused ? '▶ | Ta ai, escute, tô alisando muito não!' : '❌ | Vou tocar mais porra nenhuma não!' })
+      return await interaction.followUp({
+        embeds: [EmbedCustomBuild({
+          typeEmbed: 'musicResume',
+          queueProps: queue
+        })]
+      })
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Command } from '../interface/Command'
 import { Player } from 'discord-player'
 import { CommandInteraction, Client } from 'discord.js'
+import { EmbedCustomBuild } from './music-message-embed'
 
 export const Skip: Command = {
   name: 'skip',
@@ -9,11 +10,18 @@ export const Skip: Command = {
     if (interaction.guild != null) {
       const queue = clientPlayer.getQueue(interaction.guild)
       if ((queue == null) || !queue.playing) return await interaction.followUp({ content: '❌ | Tô tocando nada não porra, e não me abuse não!' })
-      const currentTrack = queue.current
       const success = queue.skip()
 
       return await interaction.followUp({
-        content: success ? `✅ | Mudei esse caralho! **${currentTrack}**!` : '❌ | Vou mudar porra nenhuma não!'
+        embeds: success
+          ? [EmbedCustomBuild({
+              typeEmbed: 'musicSkip',
+              queueProps: queue
+            })]
+          : [EmbedCustomBuild({
+              typeEmbed: 'notMusicSkip',
+              queueProps: queue
+            })]
       })
     }
   }
