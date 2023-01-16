@@ -32,7 +32,7 @@ export const Play: Command = {
     if (!member.voice.channelId) return await interaction.reply({ content: 'Oxi, e eu vou tocar pra ninguém, é ?!', ephemeral: true })
 
     // send feedback if found
-    const waitingMessage = await interaction.followUp({
+    await interaction.followUp({
       content: `⏱ | Deixe eu botar ${searchResult.playlist ? 'sua playlist' : 'sua música'} no pen drive carai, espera ai.. !`
     })
 
