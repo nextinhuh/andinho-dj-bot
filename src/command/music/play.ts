@@ -1,6 +1,6 @@
 import { Command } from '../interface/Command'
 import { Player, QueryType } from 'discord-player'
-import { CommandInteraction, Client, GuildMember, ApplicationCommandOptionType } from 'discord.js'
+import { CommandInteraction, Client, GuildMember, ApplicationCommandOptionType, EmbedBuilder } from 'discord.js'
 
 export const Play: Command = {
   name: 'play',
@@ -31,9 +31,13 @@ export const Play: Command = {
     // send feedback if member is not in same channel
     if (!member.voice.channelId) return await interaction.reply({ content: 'Oxi, e eu vou tocar pra ninguém, é ?!', ephemeral: true })
 
+    const embedFeedMessage = new EmbedBuilder()
+      .setColor('#00FF00')
+      .setTitle('Procurando sua musica, aguarde!')
+
     // send feedback if found
-    await interaction.followUp({
-      content: `⏱ | Deixe eu botar ${searchResult.playlist ? 'sua playlist' : 'sua música'} no pen drive carai, espera ai.. !`
+    const feedMessage = await interaction.followUp({
+      embeds: [embedFeedMessage]
     })
 
     if (interaction.guild != null) {
@@ -63,6 +67,13 @@ export const Play: Command = {
       // starts the queue
       if (!queue.playing) {
         await queue.play()
+      }
+
+      // Delete wait message
+      if (feedMessage) {
+        setTimeout(() => {
+          feedMessage.delete()
+        }, 8000)
       }
     }
   }
