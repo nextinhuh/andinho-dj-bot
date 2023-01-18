@@ -10,7 +10,11 @@ export const Skip: Command = {
     if (interaction.guild != null) {
       const queue = clientPlayer.getQueue(interaction.guild)
       if ((queue == null) || !queue.playing) return await interaction.followUp({ content: '❌ | Tô tocando nada não porra, e não me abuse não!' })
-      const success = queue.skip()
+
+      // check if there are more songs in the queue
+      const success = !(queue.tracks.length <= 0)
+
+      if (success) queue.skip()
 
       return await interaction.followUp({
         embeds: success

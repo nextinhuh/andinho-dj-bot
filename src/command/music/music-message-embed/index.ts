@@ -54,7 +54,7 @@ export function EmbedCustomBuild ({ typeEmbed, queue }: EmbedCustomProps): Embed
       // on skiped track
       return new EmbedBuilder()
         .setColor('#00BFFF')
-        .setTitle('Pulando para a proxima!')
+        .setTitle('🏃‍♂️ | Pulando para a proxima!')
       break
     case 'musicPause':
       // on pause music player
@@ -68,8 +68,7 @@ export function EmbedCustomBuild ({ typeEmbed, queue }: EmbedCustomProps): Embed
           value:
           `🔊 ${pausedSong.title}\n` +
           `⌚ Duração: ${pausedSong.duration} \n` +
-          `⛓ Url: ${pausedSong.url} \n` +
-          `👁 Views: ${pausedSong.views} \n`,
+          `⛓ Url: ${pausedSong.url} \n`,
           inline: true
         })
         .setFooter({
@@ -82,15 +81,14 @@ export function EmbedCustomBuild ({ typeEmbed, queue }: EmbedCustomProps): Embed
       const resumeSong = queue.previousTracks[queue.previousTracks.length - 1]
       return new EmbedBuilder()
         .setColor('#00FF00')
-        .setTitle('▶ | Voltando a tocar')
+        .setTitle('Voltando a tocar')
         .setThumbnail(resumeSong.thumbnail)
         .addFields({
-          name: 'Encontrei essa bomba aqui, espero que seja ela em ! 🤬',
+          name: 'Voltei a tocar esse carai, não me enche muito o pote não!',
           value:
             `🔊 ${resumeSong.title} \n` +
             `⌚ Duração: ${resumeSong.duration} \n` +
-            `⛓ Url: ${resumeSong.url} \n` +
-            `👁 Views: ${resumeSong.views} \n`,
+            `⛓ Url: ${resumeSong.url} \n`,
           inline: true
         })
         .setFooter({
@@ -102,7 +100,10 @@ export function EmbedCustomBuild ({ typeEmbed, queue }: EmbedCustomProps): Embed
       // on stop music player
       return new EmbedBuilder()
         .setColor('#B22222')
-        .setTitle('🛑 | Parei esse carai !')
+        .addFields({
+          name: 'Parei esse carai!',
+          value: 'Mermão tu ta me abusando em 🤬'
+        })
       break
     case 'queueEnded':
       // on ended queue
@@ -114,7 +115,7 @@ export function EmbedCustomBuild ({ typeEmbed, queue }: EmbedCustomProps): Embed
       // on ended queue
       return new EmbedBuilder()
         .setColor('#B22222')
-        .setTitle('Tó saindo seu corno! ')
+        .setTitle('👍 | Tó saindo seu corno! ')
       break
     case 'notMusicSkip':
       // on ended queue
