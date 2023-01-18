@@ -31,6 +31,7 @@ export const Play: Command = {
     // send feedback if member is not in same channel
     if (!member.voice.channelId) return await interaction.reply({ content: 'Oxi, e eu vou tocar pra ninguém, é ?!', ephemeral: true })
 
+    // create feedback message
     const embedFeedMessage = new EmbedBuilder()
       .setColor('#00FF00')
       .setTitle('Procurando sua musica, aguarde!')
@@ -71,7 +72,7 @@ export const Play: Command = {
 
       // Delete wait message
       if (feedMessage) {
-        setTimeout(() => {
+        return setTimeout(() => {
           feedMessage.delete()
         }, 8000)
       }

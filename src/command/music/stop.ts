@@ -15,7 +15,7 @@ export const Stop: Command = {
       return await interaction.followUp({
         embeds: [EmbedCustomBuild({
           typeEmbed: 'musicStop',
-          queueProps: queue
+          queue
         })]
       })
     }

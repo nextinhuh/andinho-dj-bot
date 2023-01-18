@@ -3,14 +3,14 @@ import { EmbedBuilder } from 'discord.js'
 
 interface EmbedCustomProps {
   typeEmbed: 'musicPlay' | 'musicStop' | 'musicSkip' | 'musicAdd' | 'musicEnd' | 'musicPause' | 'musicResume' | 'queueEnded' | 'disconnectBot' | 'notMusicSkip'
-  queueProps: Queue<any>
+  queue: Queue<any>
 }
 
-export function EmbedCustomBuild ({ typeEmbed, queueProps }: EmbedCustomProps): EmbedBuilder {
+export function EmbedCustomBuild ({ typeEmbed, queue }: EmbedCustomProps): EmbedBuilder {
   switch (typeEmbed) {
     case 'musicPlay':
       // on start music player
-      const currentSong = queueProps.current
+      const currentSong = queue.current
       return new EmbedBuilder()
         .setColor('#00FF00')
         .setTitle('Tocando agora!')
@@ -31,7 +31,7 @@ export function EmbedCustomBuild ({ typeEmbed, queueProps }: EmbedCustomProps): 
       break
     case 'musicAdd':
       // on add new track in queue
-      const addSong = queueProps.tracks[queueProps.tracks.length - 1]
+      const addSong = queue.tracks[queue.tracks.length - 1]
       return new EmbedBuilder()
         .setColor('#00FFFF')
         .setTitle('Musica adicionada a fila')
@@ -58,7 +58,7 @@ export function EmbedCustomBuild ({ typeEmbed, queueProps }: EmbedCustomProps): 
       break
     case 'musicPause':
       // on pause music player
-      const pausedSong = queueProps.current
+      const pausedSong = queue.current
       return new EmbedBuilder()
         .setColor('#FF1493')
         .setTitle('Musica pausada!')
@@ -79,7 +79,7 @@ export function EmbedCustomBuild ({ typeEmbed, queueProps }: EmbedCustomProps): 
       break
     case 'musicResume':
       // on resume track in queue
-      const resumeSong = queueProps.previousTracks[queueProps.previousTracks.length - 1]
+      const resumeSong = queue.previousTracks[queue.previousTracks.length - 1]
       return new EmbedBuilder()
         .setColor('#00FF00')
         .setTitle('▶ | Voltando a tocar')

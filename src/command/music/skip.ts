@@ -16,11 +16,11 @@ export const Skip: Command = {
         embeds: success
           ? [EmbedCustomBuild({
               typeEmbed: 'musicSkip',
-              queueProps: queue
+              queue
             })]
           : [EmbedCustomBuild({
               typeEmbed: 'notMusicSkip',
-              queueProps: queue
+              queue
             })]
       })
     }

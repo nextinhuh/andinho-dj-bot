@@ -15,7 +15,7 @@ export default (client: Client, clientPlayer: Player): void => {
     queue.metadata.channel.send({
       embeds: [EmbedCustomBuild({
         typeEmbed: 'musicPlay',
-        queueProps: queue
+        queue
       })]
     })
   })
@@ -25,7 +25,7 @@ export default (client: Client, clientPlayer: Player): void => {
     queue.metadata.channel.send({
       embeds: [EmbedCustomBuild({
         typeEmbed: 'musicAdd',
-        queueProps: queue
+        queue
       })]
     })
   })
@@ -35,7 +35,7 @@ export default (client: Client, clientPlayer: Player): void => {
     queue.metadata.channel.send({
       embeds: [EmbedCustomBuild({
         typeEmbed: 'disconnectBot',
-        queueProps: queue
+        queue
       })]
     })
   })
@@ -45,7 +45,7 @@ export default (client: Client, clientPlayer: Player): void => {
     queue.metadata.channel.send({
       embeds: [EmbedCustomBuild({
         typeEmbed: 'queueEnded',
-        queueProps: queue
+        queue
       })]
     })
   })

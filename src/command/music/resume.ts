@@ -17,7 +17,7 @@ export const Resume: Command = {
       return await interaction.followUp({
         embeds: [EmbedCustomBuild({
           typeEmbed: 'musicResume',
-          queueProps: queue
+          queue
         })]
       })
     }
