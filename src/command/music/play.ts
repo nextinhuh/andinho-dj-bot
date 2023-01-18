@@ -1,6 +1,6 @@
 import { Command } from '../interface/Command'
 import { Player, QueryType } from 'discord-player'
-import { CommandInteraction, Client, GuildMember, ApplicationCommandOptionType } from 'discord.js'
+import { CommandInteraction, Client, GuildMember, ApplicationCommandOptionType, EmbedBuilder } from 'discord.js'
 
 export const Play: Command = {
   name: 'play',
@@ -28,11 +28,18 @@ export const Play: Command = {
     // send feedback if not found
     if ((searchResult == null) || (searchResult.tracks.length === 0)) return await interaction.followUp({ content: '❌ | Eu não achei o carai dessa música não, arrombado!' })
 
-    // send feedback if found
-    await interaction.followUp({ content: `⏱ | Deixe eu botar ${(searchResult.playlist != null) ? 'sua playlist' : 'sua música'} no pen drive carai, espera ai.. !` })
-
     // send feedback if member is not in same channel
-    if (member.voice.channelId == null) return await interaction.reply({ content: 'E eu vou tocar pra ninguém, é ?!', ephemeral: true })
+    if (!member.voice.channelId) return await interaction.reply({ content: 'Oxi, e eu vou tocar pra ninguém, é ?!', ephemeral: true })
+
+    // create feedback message
+    const embedFeedMessage = new EmbedBuilder()
+      .setColor('#00FF00')
+      .setTitle('Procurando sua musica, aguarde!')
+
+    // send feedback if found
+    const feedMessage = await interaction.followUp({
+      embeds: [embedFeedMessage]
+    })
 
     if (interaction.guild != null) {
       // create the track queue
@@ -59,7 +66,16 @@ export const Play: Command = {
       (searchResult.playlist != null) ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0])
 
       // starts the queue
-      if (!queue.playing) await queue.play()
+      if (!queue.playing) {
+        await queue.play()
+      }
+
+      // Delete wait message
+      if (feedMessage) {
+        return setTimeout(() => {
+          feedMessage.delete()
+        }, 8000)
+      }
     }
   }
 }

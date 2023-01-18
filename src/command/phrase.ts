@@ -1,6 +1,6 @@
-import { CommandInteraction, Client, ApplicationCommandType } from 'discord.js'
 import { Phrases } from '../utils/constants'
 import { Command } from './interface/Command'
+import { CommandInteraction, Client, ApplicationCommandType } from 'discord.js'
 
 export const Phrase: Command = {
   name: 'frase',

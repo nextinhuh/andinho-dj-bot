@@ -1,6 +1,7 @@
 import { Command } from '../interface/Command'
 import { Player } from 'discord-player'
 import { CommandInteraction, Client } from 'discord.js'
+import { EmbedCustomBuild } from './music-message-embed'
 
 export const Stop: Command = {
   name: 'stop',
@@ -11,7 +12,12 @@ export const Stop: Command = {
       if ((queue == null) || !queue.playing) return await interaction.followUp({ content: '❌ | Tô tocando nada não porra, e não me abuse não!' })
       queue.destroy()
 
-      return await interaction.followUp({ content: '🛑 |  Parei esse caralho!' })
+      return await interaction.followUp({
+        embeds: [EmbedCustomBuild({
+          typeEmbed: 'musicStop',
+          queue
+        })]
+      })
     }
   }
 }

@@ -11,7 +11,12 @@ export const Meme: Command = {
 
     await interaction.followUp({
       ephemeral: true,
-      embeds: [new EmbedBuilder().setColor('Blue').setTitle(content.text).setImage(content.photoUrl)]
+      embeds: [
+        new EmbedBuilder()
+          .setColor('Blue')
+          .setTitle(content.text)
+          .setImage(content.photoUrl)
+      ]
     })
   }
 }
