@@ -18,7 +18,7 @@ export function EmbedCustomBuild ({ typeEmbed, queue }: EmbedCustomProps): Embed
         .addFields({
           name: 'To tocando esse carai! Me agunei não 🤬',
           value:
-          `🔊 ${currentSong.title}` +
+          `🔊 ${currentSong.title} \n` +
           `⌚ Duração: ${currentSong.duration} \n` +
           `⛓ Url: ${currentSong.url} \n` +
           `👁 Views: ${currentSong.views} \n`,
@@ -114,7 +114,7 @@ export function EmbedCustomBuild ({ typeEmbed, queue }: EmbedCustomProps): Embed
       // on ended queue
       return new EmbedBuilder()
         .setColor('#B22222')
-        .setTitle('✔ | Terminei sa bosta, e va pa porra!')
+        .setTitle('Tó saindo seu corno! ')
       break
     case 'notMusicSkip':
       // on ended queue
